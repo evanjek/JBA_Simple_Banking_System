@@ -19,16 +19,42 @@ public class Account {
     public String getCardPin() {
         return cardPin;
     }
-    public Account(){
-        cardNumber = "400000" + String.format("%010d", (long) (Math.random() * 9999999999L));
-        cardPin = String.format("%04d", (long) (Math.random() * 9999L));
+
+    public String createCardNumber() {
+        cardNumber = checkSum();
+        return cardNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "cardNumber='" + cardNumber + '\'' +
-                ", cardPin='" + cardPin + '\'' +
-                '}';
+    public String checkSum() {
+        String card = "400000" + String.format("%09d", (long) (Math.random() * 999999999L));
+        for (int i = 0; i <= 9; i++) {
+            String checksum = card + i;
+            if (check(checksum)) {
+                return checksum;
+            }
+        }
+        throw new IllegalStateException("Dumb bitch.");
+    }
+
+    public boolean check(String cardNumber) {
+        int sum = 0;
+        boolean alternate = false;
+        for (int i = cardNumber.length() - 1; i >= 0; i--) {
+            int n = Integer.parseInt(cardNumber.substring(i, i + 1));
+            if (alternate) {
+                n *= 2;
+                if (n > 9) {
+                    n = (n % 10) + 1;
+                }
+            }
+            sum += n;
+            alternate = !alternate;
+        }
+        return (sum % 10 == 0);
+    }
+
+    public String createCardPin() {
+        cardPin = String.format("%04d", (long) (Math.random() * 9999));
+        return cardPin;
     }
 }
