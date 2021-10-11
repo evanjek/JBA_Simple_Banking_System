@@ -11,7 +11,7 @@ public class Main {
         Map<String, Account> mapAccount = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
-        Account newAccount = null;
+        Account newAccount = new Account();
         while (!exit) {
             System.out.println("1. Create an account\n" +
                     "2. Log into account\n" +
@@ -19,7 +19,6 @@ public class Main {
             int meni = scanner.nextInt();
             switch (meni) {
                 case 1:
-                    newAccount = new Account();
                     mapAccount.put(newAccount.getCardNumber(), newAccount);
                     System.out.println("Your card has been created\n" +
                             "Your card number:\n" + newAccount.getCardNumber() + "\n" +
