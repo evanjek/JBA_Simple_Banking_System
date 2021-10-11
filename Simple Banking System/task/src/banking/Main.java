@@ -10,8 +10,14 @@ public class Main {
         Map<String, Account> mapAccount = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
+        boolean dbCreated = false;
+        DataBaseManager databaseManager = new DataBaseManager();
         Account newAccount = new Account();
         while (!exit) {
+            if (!dbCreated) {
+                databaseManager.makeDBConnection();
+                dbCreated = true;
+            }
             System.out.println("1. Create an account\n" +
                     "2. Log into account\n" +
                     "0. Exit");
@@ -21,6 +27,7 @@ public class Main {
                     newAccount.createCardNumber();
                     newAccount.createCardPin();
                     mapAccount.put(newAccount.getCardNumber(), newAccount);
+                    databaseManager.addAccount(newAccount);
                     System.out.println("Your card has been created\n" +
                             "Your card number:\n" + newAccount.getCardNumber() + "\n" +
                             "Your card PIN:\n" + newAccount.getCardPin() + "\n");
@@ -30,7 +37,7 @@ public class Main {
                     String cardNumber = scanner.next();
                     System.out.println("Enter your PIN:");
                     String cardPin = scanner.next();
-                    if (newAccount.getCardNumber().equals(cardNumber)&&newAccount.getCardPin().equals(cardPin)) {
+                    if (databaseManager.isCardInDatabase(cardNumber, cardPin)) {
                         System.out.println("You have successfully logged in!");
                     } else {
                         System.out.println("Wrong card number or PIN!");

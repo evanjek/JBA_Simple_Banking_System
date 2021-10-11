@@ -3,7 +3,7 @@ package banking;
 public class Account {
     private String cardNumber;
     private String cardPin;
-
+    private int balance;
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -19,6 +19,11 @@ public class Account {
     public String getCardPin() {
         return cardPin;
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
 
     public String createCardNumber() {
         cardNumber = checkSum();
