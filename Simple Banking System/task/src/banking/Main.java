@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+    static String[] accountDetail;
 
     public static void main(String[] args) {
         Map<String, Account> mapAccount = new HashMap<>();
@@ -18,8 +19,6 @@ public class Main {
             int meni = scanner.nextInt();
             switch (meni) {
                 case 1:
-                    newAccount.createCardNumber();
-                    newAccount.createCardPin();
                     mapAccount.put(newAccount.getCardNumber(), newAccount);
                     System.out.println("Your card has been created\n" +
                             "Your card number:\n" + newAccount.getCardNumber() + "\n" +
@@ -30,11 +29,10 @@ public class Main {
                     String cardNumber = scanner.next();
                     System.out.println("Enter your PIN:");
                     String cardPin = scanner.next();
-                    if (newAccount.getCardNumber().equals(cardNumber)&&newAccount.getCardPin().equals(cardPin)) {
+                    if (newAccount.getCardNumber().equals(cardNumber) && newAccount.getCardPin().equals(cardPin)) {
                         System.out.println("You have successfully logged in!");
-                    } else {
+                    } else
                         System.out.println("Wrong card number or PIN!");
-                    }
                     System.out.println();
                     break;
                 case 0:
