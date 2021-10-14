@@ -4,6 +4,16 @@ public class Account {
     private String cardNumber;
     private String cardPin;
     private int balance;
+
+    public Account(String cardNumber, String cardPin) {
+        this.cardNumber = cardNumber;
+        this.cardPin = cardPin;
+        this.balance = balance;
+    }
+
+    public Account() {
+    }
+
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -24,10 +34,18 @@ public class Account {
         return balance;
     }
 
+    public String createCardPin() {
+        cardPin = String.format("%04d", (long) (Math.random() * 9999));
+        return cardPin;
+    }
 
     public String createCardNumber() {
         cardNumber = checkSum();
         return cardNumber;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public String checkSum() {
@@ -38,10 +56,10 @@ public class Account {
                 return checksum;
             }
         }
-        throw new IllegalStateException("Dumb bitch.");
+        throw new IllegalStateException("Probably you made a mistake in the card number. Please try again!\n");
     }
 
-    public boolean check(String cardNumber) {
+    public static boolean check(String cardNumber) {
         int sum = 0;
         boolean alternate = false;
         for (int i = cardNumber.length() - 1; i >= 0; i--) {
@@ -56,10 +74,5 @@ public class Account {
             alternate = !alternate;
         }
         return (sum % 10 == 0);
-    }
-
-    public String createCardPin() {
-        cardPin = String.format("%04d", (long) (Math.random() * 9999));
-        return cardPin;
     }
 }
